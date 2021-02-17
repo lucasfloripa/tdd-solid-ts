@@ -1,7 +1,5 @@
 import { SignUpController } from '../../src/presentation/controllers/signup'
-import { InvalidParamError } from '../../src/presentation/errors/invalid-param-error'
-import { MissingParamError } from '../../src/presentation/errors/missing-param-error'
-import { ServerError } from '../../src/presentation/errors/server-error'
+import { MissingParamError, InvalidParamError, ServerError } from '../../src/presentation/errors'
 import { EmailValidator } from '../../src/presentation/protocols/email-validator'
 import { HttpRequest, HttpResponse } from '../../src/presentation/protocols/http'
 
