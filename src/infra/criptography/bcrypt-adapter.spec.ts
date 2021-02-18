@@ -1,27 +1,17 @@
 import { Encrypter } from '../../data/protocols/encrypter'
 import { BcrypterAdapter } from './bcrypt-adapter'
+import bcrypt from 'bcrypt'
 
+const salt = 12
 const makeSut = (): Encrypter => {
-  return new BcrypterAdapter()
+  return new BcrypterAdapter(salt)
 }
 
 describe('Bcrypt Adapter', () => {
-  test('Should call bcrypt with correct value', () => {
+  test('Should call bcrypt with correct values', async () => {
     const sut = makeSut()
-    const addSpy = jest.spyOn(addAccountStub, 'add')
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
-    }
-    await sut.handle(httpRequest)
-    expect(addSpy).toHaveBeenCalledWith({
-      name: 'any_name',
-      email: 'any_email@mail.com',
-      password: 'any_password'
-    })
+    const hashSpy = jest.spyOn(bcrypt, 'hash')
+    await sut.encrypt('any_value')
+    expect(hashSpy).toHaveBeenCalledWith('any_value', salt)
   })
 })
