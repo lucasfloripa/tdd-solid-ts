@@ -31,9 +31,7 @@ const makeControllerStub = (): Controller => {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       const httpResponse = {
         statusCode: 200,
-        body: {
-          name: 'Lucas'
-        }
+        body: makeFakeAccount()
       }
       return await new Promise(resolve => resolve(httpResponse))
     }
@@ -74,7 +72,7 @@ describe('Log Controller Decorator', () => {
   test('Should return the same result of the controller', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(ok(makeFakeAccount))
+    expect(httpResponse).toEqual(ok(makeFakeAccount()))
   })
 
   test('Should call LogErrorRepository with correct error if controller returns a server error', async () => {
