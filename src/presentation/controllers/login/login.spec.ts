@@ -1,16 +1,21 @@
-import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { badRequest } from '../../helpers/http-helper'
 import { HttpRequest, HttpResponse } from '../../protocols'
+import { EmailValidator } from '../signup/signup-protocols'
 import { LoginController } from './login'
 
-const makeEmailValidator = (): EmailValidatorAdapter => {
-  return new EmailValidatorAdapter()
+const makeEmailValidator = (): EmailValidator => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid (email: string): boolean {
+      return true
+    }
+  }
+  return new EmailValidatorStub()
 }
 
 interface SutTypes {
   sut: LoginController
-  emailValidatorStub: EmailValidatorAdapter
+  emailValidatorStub: EmailValidator
 }
 
 const makeSut = (): SutTypes => {
