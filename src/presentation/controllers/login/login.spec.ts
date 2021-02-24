@@ -1,9 +1,7 @@
-import { Authentication } from '../../../domain/usescases/authentication'
-import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
-import { badRequest, serverError, unauthorized } from '../../helpers/http-helper'
-import { HttpRequest, HttpResponse } from '../../protocols'
-import { EmailValidator } from '../signup/signup-protocols'
+import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
+import { badRequest, unauthorized, serverError } from '../../helpers/http-helper'
 import { LoginController } from './login'
+import { EmailValidator, Authentication, HttpRequest, HttpResponse } from './login-protocols'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
