@@ -1,13 +1,10 @@
 {
   "name": "elciess.signup",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "NodeJs rest API using TDD, Clean Architecture and Typescript",
   "main": "index.js",
-  "config": {
-    "mongodbMemoryServer": {
-      "version": "latest"
-    }
-  },
+  "author": "Lucas Gonçalves",
+  "license": "ISC",
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
     "test": "jest --silent --noStackTrace --runInBand",
@@ -17,9 +14,11 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "latest"
+    }
+  },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
