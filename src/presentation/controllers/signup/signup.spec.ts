@@ -63,20 +63,6 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
-  test('Should return 400 if passwordConfirmation fails', async () => {
-    const { sut } = makeSut()
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'invalid_password'
-      }
-    }
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('passwordConfirmation')))
-  })
-
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationStub } = makeSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error())
