@@ -67,6 +67,14 @@ describe('SignUp Controller', () => {
     expect(httpResponse).toEqual(badRequest(new Error()))
   })
 
+  test('Should call Validation with correct values (integration test)', async () => {
+    const { sut, validationStub } = makeSut()
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest: HttpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
   test('Should call AddAccount with correct values (integration test)', async () => {
     const { sut, addAccountStub } = makeSut()
     const addSpy = jest.spyOn(addAccountStub, 'add')
@@ -77,14 +85,6 @@ describe('SignUp Controller', () => {
       email: 'any_email@mail.com',
       password: 'any_password'
     })
-  })
-
-  test('Should call Validation with correct values (integration test)', async () => {
-    const { sut, validationStub } = makeSut()
-    const validateSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest: HttpRequest = makeFakeRequest()
-    await sut.handle(httpRequest)
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 
   test('Should return 500 if AddAccount throws (integration test)', async () => {
