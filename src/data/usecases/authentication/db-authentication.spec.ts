@@ -8,15 +8,17 @@ const makeFakeAuthenticationModel = (): AuthenticationModel => ({
   password: 'any_password'
 })
 
+const makeFakeAccount = (): AccountModel => ({
+  id: 'any_id',
+  name: 'any_name',
+  email: 'any_email',
+  password: 'any_password'
+})
+
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async load (email: string): Promise<AccountModel> {
-      return {
-        id: 'any_id',
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password'
-      }
+      return makeFakeAccount()
     }
   }
   return new LoadAccountByEmailRepositoryStub()
