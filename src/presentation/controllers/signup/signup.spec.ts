@@ -1,7 +1,8 @@
 import { ServerError } from '../../errors'
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
+import { Validation } from '../../protocols/validation'
 import { SignUpController } from './signup'
-import { AddAccount, AddAccountModel, AccountModel, HttpRequest, HttpResponse, Validation } from './signup-protocols'
+import { AddAccount, AddAccountModel, AccountModel, HttpRequest, HttpResponse } from './signup-protocols'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
