@@ -30,10 +30,16 @@ describe('Bcrypt Adapter', () => {
     expect(compareSpy).toHaveBeenCalledWith('any_value', 'any_hash')
   })
 
-  test('Should return a valid hash on success', async () => {
+  test('Should return a valid hash on hash success', async () => {
     const sut = makeSut()
     const hash = await sut.hash('any_value')
     expect(hash).toBe('hash')
+  })
+
+  test('Should return true on compare success', async () => {
+    const sut = makeSut()
+    const hash = await sut.compare('any_value', 'hash')
+    expect(hash).toBe(true)
   })
 
   test('Should throw if bcrypt throws (integration test)', async () => {
