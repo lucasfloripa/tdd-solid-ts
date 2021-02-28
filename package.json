@@ -6,7 +6,9 @@
   "author": "Lucas Gonçalves",
   "license": "ISC",
   "scripts": {
-    "start": "sucrase-node src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
+    "dev": "sucrase-node src/main/server.ts",
     "test": "jest --silent --noStackTrace --runInBand",
     "test:verbose": "jest --runInBand",
     "test:unit": "npm test -- --watchAll -c jest-unit-config.js",
@@ -39,6 +41,7 @@
     "husky": "^5.0.9",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
+    "rimraf": "^3.0.2",
     "sucrase": "^3.17.1",
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.1",
@@ -47,9 +50,11 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",
-    "fast-glob": "^3.2.5",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.4",
     "validator": "^13.5.2"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
