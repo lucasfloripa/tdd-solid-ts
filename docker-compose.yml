@@ -1,12 +1,14 @@
 version: "3"
 services: 
-  api:
+  api-elciess-signup:
     container_name: api-container
     build: .
     restart: always
     image: elciess-signup
-    command: npm start
+    command: npm run debug
     volumes: 
       - ./dist:/usr/src/elciess-signup/dist
+      - ./package.json:/usr/src/elciess-signup/package.json
     ports: 
       - "5050:5050"
+      - "9222:9222"
