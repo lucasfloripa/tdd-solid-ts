@@ -1,5 +1,10 @@
 node_modules
 dist
 coverage
+<<<<<<< HEAD
 data
 /globalConfig.json
+=======
+/globalConfig.json
+.vscode
+>>>>>>> fix
