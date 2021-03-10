@@ -15,9 +15,9 @@ export const makeSignUpController = (): Controller => {
   const accountMongoRepository = new AccountMongoRepository()
   const jwtAdapter = new JwtAdapter(env.jwtSecret)
   const bcryptAdapter = new BcrypterAdapter(salt)
-  const authentication = new DbAuthentication(accountMongoRepository, bcryptAdapter, jwtAdapter, accountMongoRepository)
+  const dbAuthentication = new DbAuthentication(accountMongoRepository, bcryptAdapter, jwtAdapter, accountMongoRepository)
   const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository)
-  const signUpController = new SignUpController(dbAddAccount, makeSignUpValidation(), authentication)
+  const signUpController = new SignUpController(dbAddAccount, makeSignUpValidation(), dbAuthentication)
   const logMongoRepository = new LogMongoRepository()
   return new LogControllerDecorator(signUpController, logMongoRepository)
 }
