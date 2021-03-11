@@ -1,9 +1,8 @@
 import { ServerError } from '../../errors'
 import { EmailInUseError } from '../../errors/email-in-use-error'
 import { badRequest, forbidden, ok, serverError } from '../../helpers/http/http-helper'
-import { Validation } from '../../protocols/validation'
 import { SignUpController } from './signup-controller'
-import { AddAccount, AddAccountModel, AccountModel, HttpRequest, HttpResponse, Authentication, AuthenticationModel } from './signup-controller-protocols'
+import { AddAccount, AddAccountModel, AccountModel, HttpRequest, HttpResponse, Authentication, AuthenticationModel, Validation } from './signup-controller-protocols'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
