@@ -101,6 +101,12 @@ describe('Account Mongo Repository', () => {
       const accountData = await sut.loadByEmail('any_email@mail.com')
       expect(accountData).toBeFalsy()
     })
+
+    test('Should return null if loadByToken fails', async () => {
+      const { sut } = makeSut()
+      const accountData = await sut.loadByEmail('any_token')
+      expect(accountData).toBeFalsy()
+    })
   })
 
   describe('updateAccessToken()', () => {
