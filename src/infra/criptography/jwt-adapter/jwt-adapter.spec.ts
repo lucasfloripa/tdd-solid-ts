@@ -38,6 +38,7 @@ describe('Jwt Adapter', () => {
       await expect(promise).rejects.toThrow()
     })
   })
+
   describe('verify()', () => {
     test('Should call verify with correct values', async () => {
       const sut = makeSut()
@@ -50,6 +51,15 @@ describe('Jwt Adapter', () => {
       const sut = makeSut()
       const value = await sut.decrypt('any_token')
       expect(value).toBe('any_value')
+    })
+
+    test('Should throw if verify throws (integration test)', async () => {
+      const sut = makeSut()
+      jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
+        throw new Error()
+      })
+      const promise: Promise<string> = sut.decrypt('any_value')
+      await expect(promise).rejects.toThrow()
     })
   })
 })
