@@ -1,5 +1,5 @@
 import { LoadSurveys } from '../../../../domain/usescases/load-surveys'
-import { ok, serverError } from '../../../helpers/http/http-helper'
+import { noContent, ok, serverError } from '../../../helpers/http/http-helper'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 
@@ -11,7 +11,7 @@ export class LoadSurveysController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const surveys = await this.loadSurveys.load()
-      return ok(surveys)
+      return surveys.length ? ok(surveys) : noContent()
     } catch (error) {
       return serverError(error)
     }
