@@ -1,6 +1,6 @@
-import { ServerError } from '../../../errors/server-error'
-import { badRequest, unauthorized, serverError, ok } from '../../../helpers/http/http-helper'
-import { HttpRequest, Authentication, AuthenticationModel, Validation, HttpResponse } from '../signup/signup-controller-protocols'
+import { ServerError } from '@/presentation/errors/server-error'
+import { badRequest, unauthorized, serverError, ok } from '@/presentation/helpers/http/http-helper'
+import { HttpRequest, Authentication, AuthenticationModel, Validation, HttpResponse } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 
 const makeFakeRequest = (): HttpRequest => ({
