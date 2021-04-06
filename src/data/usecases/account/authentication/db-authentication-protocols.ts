@@ -1,5 +1,5 @@
 export * from '@/domain/models/account'
-export * from '@/domain/usescases/authentication'
+export * from '@/domain/usescases/account/authentication'
 export * from '@/data/protocols/criptography/hash-comparer'
 export * from '@/data/protocols/criptography/encrypter'
 export * from '@/data/protocols/db/account/update-access-token-repository'
