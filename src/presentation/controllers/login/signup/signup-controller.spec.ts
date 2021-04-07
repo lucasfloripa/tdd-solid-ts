@@ -1,7 +1,7 @@
 import { ServerError, EmailInUseError } from '@/presentation/errors'
 import { badRequest, forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { SignUpController } from './signup-controller'
-import { AddAccount, AddAccountModel, AccountModel, HttpRequest, HttpResponse, Authentication, AuthenticationModel, Validation } from './signup-controller-protocols'
+import { AddAccount, AddAccountParams, AccountModel, HttpRequest, HttpResponse, Authentication, AuthenticationParams, Validation } from './signup-controller-protocols'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -30,7 +30,7 @@ const makeValidation = (): Validation => {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountParams): Promise<AccountModel> {
       const fakeAccount: AccountModel = makeFakeAccount()
       return await new Promise(resolve => resolve(fakeAccount))
     }
@@ -40,7 +40,7 @@ const makeAddAccount = (): AddAccount => {
 
 const makeAuthetication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return await new Promise(resolve => resolve('valid_token'))
     }
   }

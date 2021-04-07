@@ -1,6 +1,6 @@
 import { ServerError } from '@/presentation/errors/server-error'
 import { badRequest, unauthorized, serverError, ok } from '@/presentation/helpers/http/http-helper'
-import { HttpRequest, Authentication, AuthenticationModel, Validation, HttpResponse } from './login-controller-protocols'
+import { HttpRequest, Authentication, AuthenticationParams, Validation, HttpResponse } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -12,7 +12,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthetication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return await new Promise(resolve => resolve('valid_token'))
     }
   }
