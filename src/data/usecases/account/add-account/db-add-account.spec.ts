@@ -1,34 +1,8 @@
+import { mockAddAccountRepository, mockHasher, mockLoadAccountByEmailRepository } from '@/data/test'
 import { mockAddAccountParams, mockAccountModel } from '@/domain/test'
 import { LoadAccountByEmailRepository } from '../authentication/db-authentication-protocols'
 import { DbAddAccount } from './db-add-account'
-import { AccountModel, AddAccountParams, Hasher, AddAccountRepository } from './db-add-account-protocols'
-
-const mockHasherStub = (): Hasher => {
-  class HasherStub implements Hasher {
-    async hash (value: string): Promise<string> {
-      return await new Promise(resolve => resolve('any_password'))
-    }
-  }
-  return new HasherStub()
-}
-
-const makeAddAccountRepositoryStub = (): AddAccountRepository => {
-  class AddAccountRepositoryStub implements AddAccountRepository {
-    async add (accountData: AddAccountParams): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(mockAccountModel()))
-    }
-  }
-  return new AddAccountRepositoryStub()
-}
-
-const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
-  class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-    async loadByEmail (email: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(null))
-    }
-  }
-  return new LoadAccountByEmailRepositoryStub()
-}
+import { AccountModel, Hasher, AddAccountRepository } from './db-add-account-protocols'
 
 type SutTypes = {
   sut: DbAddAccount
@@ -38,9 +12,10 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const hasherStub = mockHasherStub()
-  const addAccountRepositoryStub = makeAddAccountRepositoryStub()
-  const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
+  const hasherStub = mockHasher()
+  const addAccountRepositoryStub = mockAddAccountRepository()
+  const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository()
+  jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValue(new Promise(resolve => resolve(null)))
   const sut = new DbAddAccount(
     hasherStub,
     addAccountRepositoryStub,
