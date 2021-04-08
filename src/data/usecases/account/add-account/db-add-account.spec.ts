@@ -15,7 +15,7 @@ const makeSut = (): SutTypes => {
   const hasherStub = mockHasher()
   const addAccountRepositoryStub = mockAddAccountRepository()
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository()
-  jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValue(new Promise(resolve => resolve(null)))
+  jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValue(Promise.resolve(null))
   const sut = new DbAddAccount(
     hasherStub,
     addAccountRepositoryStub,
@@ -56,28 +56,28 @@ describe('DbAddAccount Usecase', () => {
 
   test('Should throw if Hasher throws (integration test)', async () => {
     const { sut, hasherStub } = makeSut()
-    jest.spyOn(hasherStub, 'hash').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(hasherStub, 'hash').mockReturnValueOnce(Promise.reject(new Error()))
     const promise: Promise<AccountModel> = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should throw if AddAccountRepository throws (integration test)', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
-    jest.spyOn(addAccountRepositoryStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(addAccountRepositoryStub, 'add').mockReturnValueOnce(Promise.reject(new Error()))
     const promise: Promise<AccountModel> = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should throw if LoadAccountByEmailRepository throws (integration test)', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
-    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(Promise.reject(new Error()))
     const promise: Promise<AccountModel> = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should return null if LoadAccountByEmailRepository success', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
-    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(new Promise(resolve => resolve(mockAccountModel())))
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(Promise.resolve(mockAccountModel()))
     const account = await sut.add(mockAddAccountParams())
     expect(account).toBeNull()
   })
